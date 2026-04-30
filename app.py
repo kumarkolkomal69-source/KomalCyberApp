@@ -1,24 +1,22 @@
+
 import streamlit as st
-
-# ऐप की सेटिंग
-st.set_page_config(page_title="Cyber-Core AI", layout="wide")
-
-# डिज़ाइन (CSS)
+import base64
+from gtts import gTTS
+import os
+st.set_page_config(page_title="Cyber-Core AI Portal", layout="wide")
 st.markdown("""
-    <style>
-    html, body, [class*="css"] { background-color: #0e0e0e; color: white; }
-    .stButton>button { border-radius: 20px; background: #4285F4; color: white; border: none; width: 100%; }
-    </style>
-    """, unsafe_allow_html=True)
-
-# लॉगिन सिस्टम
+<style>
+.main {background-color: #0e1117; color: #ffffff;}
+.stButton>button {width: 100%; border-radius: 10px; background-color: #00ff41; color: black; font-weight: bold;}
+</style>
+""", unsafe_allow_html=True)
 if 'auth' not in st.session_state:
     st.session_state.auth = False
 
 if not st.session_state.auth:
-    st.markdown("<h2 style='text-align: center;'>🧬 Cyber-Core Portal</h2>", unsafe_allow_html=True)
-    user = st.text_input("यूजर आईडी (ID):")
-    pin = st.text_input("पासवर्ड (PIN):", type="password")
+    st.title("⚡ Cyber-Core AI")
+    user = st.text_input("यूजर आईडी:")
+    pin = st.text_input("पासवर्ड:", type="password")
     if st.button("Unlock System"):
         if user.lower() == "komal" and pin == "1234":
             st.session_state.auth = True
@@ -26,11 +24,8 @@ if not st.session_state.auth:
         else:
             st.error("गलत आईडी या पासवर्ड!")
 else:
-    # ऐप खुलने के बाद का हिस्सा
-    st.title("🚀 Cyber-Core Neural Engine")
-    st.write("स्वागत है कोमल! लैब सुरक्षित है और सिस्टम ऑनलाइन है।")
-    
-    msg = st.chat_input("आदेश दें...")
-    if msg:
-        st.chat_message("user").write(msg)
-        st.chat_message("assistant").write(f"नमस्ते कोमल, मैंने आपके आदेश पर काम शुरू कर दिया है।")
+    st.success("Welcome, Komal ✅")
+    st.write("आपका AI पोर्टल सक्रिय है।")
+    if st.button("Log Out"):
+        st.session_state.auth = False
+        st.rerun()
